@@ -25,5 +25,5 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            dokploy-test:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/dokploy-test:latest
           platforms: linux/amd64     
