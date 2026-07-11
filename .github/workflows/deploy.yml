@@ -32,7 +32,10 @@ jobs:
           else
             echo "TAG=uat" >> "$GITHUB_ENV"
           fi
-
+      - name: Start BuildKit
+        run: |
+          docker run --rm --privileged -d --name buildkit moby/buildkit
+          echo "BUILDKIT_HOST=docker-container://buildkit" >> "$GITHUB_ENV"
       - name: Build image with Railpack
         run: railpack build --name ghcr.io/franciscofhdias/dokploy-test:${{ env.TAG }} .
 
