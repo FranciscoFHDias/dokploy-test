@@ -44,8 +44,13 @@ jobs:
 
       - name: Trigger Dokploy deploy (prod)
         if: github.ref_name == 'main'
-        run: curl -X POST "${{ secrets.DOKPLOY_DEPLOY_WEBHOOK }}"
-
+        run: |
+          curl -X POST "${{ secrets.DOKPLOY_DEPLOY_WEBHOOK }}" \
+            -H "CF-Access-Client-Id: ${{ secrets.CF_ACCESS_CLIENT_ID }}" \
+            -H "CF-Access-Client-Secret: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}"
       - name: Trigger Dokploy deploy (uat)
         if: github.ref_name == 'uat'
-        run: curl -X POST "${{ secrets.DOKPLOY_DEPLOY_WEBHOOK_UAT }}"
+        run: |
+          curl -X POST "${{ secrets.DOKPLOY_DEPLOY_WEBHOOK_UAT }}" \
+            -H "CF-Access-Client-Id: ${{ secrets.CF_ACCESS_CLIENT_ID }}" \
+            -H "CF-Access-Client-Secret: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}"
